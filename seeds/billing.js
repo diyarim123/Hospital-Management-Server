@@ -25,7 +25,7 @@ exports.seed = async function (knex) {
           bill_date: '2024-12-03',
       },
       {
-          patient_id: 4,
+          patient_id: 6,
           appointment_id: 15,
           amount: 150.00,
           payment_status: 'paid',
