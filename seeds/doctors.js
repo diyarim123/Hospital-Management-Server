@@ -5,7 +5,7 @@ exports.seed = async function(knex) {
   // Inserts seed entries
   await knex('doctors').insert([
       {
-          first_name: 'Dr. Hemn',
+          first_name: 'Hemn',
           last_name: 'Ali',
           specialization: 'Cardiologist',
           gender: 'female',
@@ -13,7 +13,7 @@ exports.seed = async function(knex) {
           department_id: 1, 
       },
       {
-          first_name: 'Dr. Brwa',
+          first_name: 'Brwa',
           last_name: 'Sdiq',
           specialization: 'Neurologist',
           gender: 'male',
@@ -21,7 +21,7 @@ exports.seed = async function(knex) {
           department_id: 2,
       },
       {
-          first_name: 'Dr. Sarah',
+          first_name: 'Sarah',
           last_name: 'Aziz',
           specialization: 'Pediatrician',
           gender: 'female',

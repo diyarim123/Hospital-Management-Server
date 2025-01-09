@@ -17,7 +17,6 @@ exports.up = function(knex) {
                     .inTable('doctors')
                     .onDelete('CASCADE')
                     .onUpdate('CASCADE');
-                table.dateTime('appointment_date').notNullable();
                 table.dateTime('appointment_time').notNullable();
                 table
                     .enu('status', ['scheduled' , 'completed' , 'canceled'])

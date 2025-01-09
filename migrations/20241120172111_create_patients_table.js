@@ -3,13 +3,13 @@ exports.up = function(knex) {
         if (!exists) {
             return knex.schema.createTable('patients', (table) => {
                 table.increments('patient_id').primary();
-                table.string('first_name', 50).notNullable();
-                table.string('last_name', 50).notNullable();
+                table.string('first_name', 255).notNullable();
+                table.string('last_name', 255).notNullable();
                 table.date('date_of_birth').notNullable();
                 table.string('gender', 10);
                 table.string('contact_number', 15);
                 table.text('address');
-                table.string('email', 50).unique();
+                table.string('email', 255).unique();
             });
         }
     });
@@ -18,3 +18,5 @@ exports.up = function(knex) {
 exports.down = function(knex) {
     return knex.schema.dropTableIfExists('patients');
 };
+
+

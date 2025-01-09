@@ -3,8 +3,8 @@ exports.up = function(knex) {
         if (!exists) {
             return knex.schema.createTable('doctors', (table) => {
                 table.increments('doctor_id').primary(); 
-                table.string('first_name', 50).notNullable();
-                table.string('last_name', 50).notNullable();
+                table.string('first_name', 255).notNullable();
+                table.string('last_name', 255).notNullable();
                 table.string('specialization', 50).notNullable();
                 table.string('gender', 10).notNullable(); 
                 table.string('contact_number', 50).notNullable(); 
