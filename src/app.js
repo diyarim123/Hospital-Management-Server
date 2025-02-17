@@ -7,8 +7,6 @@ const bodyParser = require('body-parser');
 const compression = require('compression');
 
 
-
-
 // import routes
 const patientsRouter = require('./routes/patientsRouter')
 const doctorsRouter = require('./routes/doctorsRouter')
@@ -20,6 +18,7 @@ const medicalRecordsRouter = require('./routes/medicalRecordsRouter')
 const roomAssignmentsRouter = require('./routes/roomAssignmentsRouter')
 const roomsRouter = require('./routes/roomsRouter')
 const servicesRouter = require('./routes/servicesRouter')
+const authRouter = require('./routes/authRouter')
 
 const db = require(`${__dirname}/config/dbConfig`);
 
@@ -39,6 +38,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(compression());
 
+app.use("/", authRouter)
 app.use("/patients", patientsRouter);
 app.use('/doctors', doctorsRouter);
 app.use('/staff', staffRouter);

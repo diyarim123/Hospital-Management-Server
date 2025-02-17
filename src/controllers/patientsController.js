@@ -17,7 +17,7 @@ const getPatients = async (req, res) => {
         const patients = await getAllPatients();
         return res.status(200).json({result: patients})
     } catch (err) {
-        return res.status(400).json({error: err})
+        return res.status(400).json({error: err || "Failed to fetch patients"})
     }
 }
 

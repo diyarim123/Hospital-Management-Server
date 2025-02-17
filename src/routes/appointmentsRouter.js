@@ -7,20 +7,21 @@ const checkIdExists = require('../middlewares/checkID')
 const { getAppointments, createAppointment, deleteAppointment, updateAppointment } = require(`${__dirname}/../controllers/appointmentsController`);
 
 // importing the custom middlewares
-const validateAppointment = require('../middlewares/appointmentsValidator')
+const validateAppointment = require('../middlewares/appointmentsValidator');
+const { authMiddleware, doctorAuth } = require('../middlewares/authMiddleware');
 
 // import the router
 const router = express.Router();
 
 // defining routes
 router.route('/')
-    .get(getAppointments)
-    .post(validateAppointment, createAppointment)
+    .get(authMiddleware, doctorAuth, getAppointments)
+    .post(authMiddleware, doctorAuth, validateAppointment, createAppointment)
 
 router.route("/:id")
-    .delete(checkIdExists('appointments', 'appointment_id'), deleteAppointment)
-    .put(checkIdExists('appointments', 'appointment_id'), updateAppointment)
-    .patch(checkIdExists('appointments', 'appointment_id'), updateAppointment)
+    .delete(authMiddleware, doctorAuth, checkIdExists('appointments', 'appointment_id'), deleteAppointment)
+    .put(authMiddleware, doctorAuth, checkIdExists('appointments', 'appointment_id'), updateAppointment)
+    .patch(authMiddleware, doctorAuth, checkIdExists('appointments', 'appointment_id'), updateAppointment)
 
-// exporting the routes
+
 module.exports = router

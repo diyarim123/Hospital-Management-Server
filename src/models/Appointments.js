@@ -6,6 +6,15 @@ const db = require('../config/dbConfig');
 
 const getAllAppointments = async () => {
     return await db('appointments')
+    .join('patients', 'appointments.patient_id', 'patients.patient_id')
+    .join('doctors', 'appointments.doctor_id', 'doctors.doctor_id')
+    .select(
+        'appointments.*',
+        'patients.first_name as patient_first_name',
+        'patients.last_name as patient_last_name',
+        'doctors.first_name as doctor_first_name',
+        'doctors.last_name as doctor_last_name'
+    );
 }
 
 const createAnAppointment = async (

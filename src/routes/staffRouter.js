@@ -7,17 +7,18 @@ const { getStaff, createStaff, deleteStaff, updateStaff } = require('../controll
 
 // importing custom middlewares
 const validateStaff = require('../middlewares/staffValidator')
+const { authMiddleware, adminAuth } = require('../middlewares/authMiddleware');
 
 // using the router
 const router = express.Router();
 
 // defining routes
 router.route("/")
-    .get(getStaff)
-    .post(validateStaff, createStaff)
+    .get(authMiddleware, adminAuth, getStaff)
+    .post(authMiddleware, adminAuth, validateStaff, createStaff)
 router.route('/:id')
-    .delete(checkIdExists('staff', 'staff_id'), deleteStaff)
-    .put(checkIdExists('staff', 'staff_id'), updateStaff)
-    .patch(checkIdExists('staff', 'staff_id'), updateStaff)
+    .delete(authMiddleware, adminAuth, checkIdExists('staff', 'staff_id'), deleteStaff)
+    .put(authMiddleware, adminAuth, checkIdExists('staff', 'staff_id'), updateStaff)
+    .patch(authMiddleware, adminAuth, checkIdExists('staff', 'staff_id'), updateStaff)
     
 module.exports = router

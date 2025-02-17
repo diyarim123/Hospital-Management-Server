@@ -6,6 +6,11 @@ const db = require('../config/dbConfig');
 
 const getAllDoctors = async () => {
     return await db('doctors')
+    .join('departments', 'doctors.department_id', 'departments.department_id')
+    .select(
+        'doctors.*',
+        'departments.department_name as department_name',
+    );
 }
 
 const createADoctor = async (

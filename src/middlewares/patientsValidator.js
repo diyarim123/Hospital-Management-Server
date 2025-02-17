@@ -13,7 +13,7 @@ const validatePatient = [
         .isLength({ min: 2 })
         .withMessage('Last name must be at least 2 characters long'),
     body('gender')
-        .isIn(['male', 'female', 'other'])
+        .isIn(['Male', 'Female', 'other'])
         .withMessage('Gender must be one of "male", "female", or "other"'),
     body('date_of_birth')
         .isISO8601()
@@ -21,7 +21,7 @@ const validatePatient = [
     body('contact_number')
         .isMobilePhone()
         .withMessage('Contact number must be a string')
-        .isLength({ max: 11 })
+        .isLength({ min: 11 })
         .withMessage('Contact number must be between 10 and 15 characters'),
     body('address')
         .isString()

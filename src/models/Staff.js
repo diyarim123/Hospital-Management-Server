@@ -6,6 +6,11 @@ const db = require('../config/dbConfig');
 
 const getAllStaff = async () => {
     return await db('staff')
+    .join('departments', 'staff.department_id', 'departments.department_id')
+    .select(
+        'staff.*',
+        'departments.department_name as department_name',
+    );
 }
 
 const createAStaff = async (

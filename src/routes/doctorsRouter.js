@@ -7,18 +7,19 @@ const { getDoctors, createDoctor, deleteDoctor, updateDoctor } = require(`${__di
 
 //importing custom middlewares
 const validateBillings = require('../middlewares/doctorsValidator')
+const { authMiddleware, patientAuth } = require('../middlewares/authMiddleware');
 
 // import the router
 const router = express.Router();
 
 // defining routes
 router.route('/')
-    .get(getDoctors)
-    .post(validateBillings, createDoctor)
+    .get(authMiddleware, patientAuth, getDoctors)
+    .post(authMiddleware, patientAuth, validateBillings, createDoctor)
 router.route("/:id")
-    .delete(checkIdExists('doctors', 'doctor_id'), deleteDoctor)
-    .put(checkIdExists('doctors', 'doctor_id'), updateDoctor)
-    .patch(checkIdExists('doctors', 'doctor_id'), updateDoctor)
+    .delete(authMiddleware, patientAuth, checkIdExists('doctors', 'doctor_id'), deleteDoctor)
+    .put(authMiddleware, patientAuth, checkIdExists('doctors', 'doctor_id'), updateDoctor)
+    .patch(authMiddleware, patientAuth, checkIdExists('doctors', 'doctor_id'), updateDoctor)
 
 
 // exporting the routes
