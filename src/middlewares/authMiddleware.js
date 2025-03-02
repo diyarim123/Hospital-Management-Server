@@ -30,7 +30,7 @@ const adminAuth = (req, res, next) => {
 
 
 const patientAuth = (req, res, next) => {
-  if (req.user.role !== 'patient' || req.user.role !== 'admin') {
+  if (req.user.role !== 'patient' && req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Access denied, Patients and Admins only.' });
   }
   next();
@@ -38,7 +38,7 @@ const patientAuth = (req, res, next) => {
 
 
 const doctorAuth = (req, res, next) => {
-  if (req.user.role !== 'doctor' || req.user.role !== 'admin') {
+  if (req.user.role !== 'doctor' && req.user.role !== 'admin') {
     return res.status(403).json({ error: 'Access denied, Doctors and Admins only.' });
   }
   next();
