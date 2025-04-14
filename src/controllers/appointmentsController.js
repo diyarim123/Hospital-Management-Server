@@ -47,7 +47,7 @@ const deleteAppointment = async (req, res) => {
             return res.status(404).json({ error: 'Data not found' });
         }
 
-        return res.status(410).json({message: "Data deleted successfuly"});
+        return res.status(204).json({message: "Data deleted successfuly"});
     } catch (err) {
         return res.status(409).json({error: err})
     }

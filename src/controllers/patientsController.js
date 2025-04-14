@@ -45,7 +45,7 @@ const deletePatient = async (req, res) => {
             return res.status(404).json({ error: 'Data not found' });
         }
 
-        return res.status(410).json({message: "Data deleted successfuly"});
+        return res.status(204).json({message: "Data deleted successfuly"});
     } catch (err) {
         return res.status(409).json({error: err})
     }
@@ -66,7 +66,7 @@ const updatePatient = async (req, res) => {
             return res.status(404).json({error: "No such data found to be updated"});
         }
 
-        return res.status(200).json({message: "Data updated successfully"})
+        return res.status(200).json({data: updates})
     } catch (err) {
 
     }
@@ -79,3 +79,5 @@ module.exports = {
     deletePatient,
     updatePatient
 };
+
+
