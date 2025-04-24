@@ -17,8 +17,8 @@ const validateDoctor = [
         .notEmpty()
         .withMessage('Specialization is required and must be a string'),
     body('gender')
-        .isIn(['male', 'female', 'other'])
-        .withMessage('Gender must be either "male", "female", or "other"'),
+        .isIn(['Male', 'Female'])
+        .withMessage('Gender must be either "male", "female"'),
     body('contact_number')
         .isMobilePhone()
         .withMessage('Contact number must be a valid phone number'),

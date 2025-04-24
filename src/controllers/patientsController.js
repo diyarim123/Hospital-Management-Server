@@ -30,7 +30,7 @@ const createPatient = async (req, res) => {
         };
 
         const [patient_id] = await createAPatient(first_name, last_name, date_of_birth, gender, contact_number, address, email);
-        res.status(201).json({ message: 'Data added successfully', patient_id });
+        res.status(201).json({ data: { patient_id, first_name, last_name, date_of_birth, gender, contact_number, address, email } });
     } catch (err) {
         res.status(500).json({error: err})
     }

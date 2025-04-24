@@ -13,8 +13,8 @@ const validatePatient = [
         .isLength({ min: 2 })
         .withMessage('Last name must be at least 2 characters long'),
     body('gender')
-        .isIn(['Male', 'Female', 'other'])
-        .withMessage('Gender must be one of "male", "female", or "other"'),
+        .isIn(['Male', 'Female'])
+        .withMessage('Gender must be one of "male", "female"'),
     body('date_of_birth')
         .isISO8601()
         .withMessage('Date of birth must be a valid date in ISO 8601 format'),
