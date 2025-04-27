@@ -13,11 +13,11 @@ const validateStaff = [
         .isLength({ min: 2 })
         .withMessage('Last name must be at least 2 characters long'),
     body('role')
-        .isIn(['nurse', 'receptionist', 'technician', 'admin', 'support'])
+        .isIn(['Nurse', 'Receptionist', 'Technician', 'Admin', 'Support'])
         .withMessage('Role must be one of "nurse", "receptionist", "technician", "admin", or "support"'),
     body('gender')
-        .isIn(['male', 'female'])
-        .withMessage('Gender must be one of "male", "female", or "other"'),
+        .isIn(['Male', 'Female'])
+        .withMessage('Gender must be one of "male", "female"'),
     body('contact_number')
         .isString()
         .withMessage('Contact number must be a string')

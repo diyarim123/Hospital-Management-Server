@@ -4,22 +4,21 @@ const validateServices = [
 
     body('service_name')
         .isString()
-        .notEmpty()
-        .withMessage('Patient ID must be a positive integer'),
+        .notEmpty(),
     body('cost')
-        .isInt({ min: 1 })
-        .withMessage('cost must be a positive integer'),
+        .isString()
+        .notEmpty()
+        .withMessage('cost must be a number'),
     body('description')
         .isString()
         .notEmpty()
-        .withMessage('Description must be a positive integer'),
+        .withMessage('Description must be a string'),
 
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
-        }
-        
+        }     
         next();
     }
 ];

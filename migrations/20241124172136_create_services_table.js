@@ -5,7 +5,7 @@ exports.up = function(knex) {
                 table.increments('service_id').primary();
                 table.string('service_name', 100).notNullable();
                 table.string('description').notNullable();
-                table.integer('cost').notNullable();
+                table.string('cost', 100).notNullable();
             });
         }
     });

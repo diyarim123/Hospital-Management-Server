@@ -6,9 +6,9 @@ exports.up = function(knex) {
                 table.string('first_name', 255).notNullable(); 
                 table.string('last_name', 255).notNullable(); 
                 table
-                    .enu('role', ['nurse', 'tech'])
+                    .enu('role', ['Nurse', 'Receptionist', 'Technician', 'Admin', 'Support'])
                     .notNullable()
-                    .defaultTo('nurse'); 
+                    .defaultTo('Nurse'); 
                 table.string('gender', 10).notNullable(); 
                 table.string('contact_number', 255).notNullable(); 
                 table.integer('department_id').unsigned(); 
