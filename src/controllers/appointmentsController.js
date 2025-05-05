@@ -25,18 +25,54 @@ const getAppointments = async (req, res) => {
 
 const createAppointment = async (req, res) => {
     try {
-        const { patient_id, doctor_id, appointment_time, status } = req.body;
-
-        if (!patient_id || !doctor_id || !appointment_time || !status) {
-            return res.status(400).json({ error: 'All fields are required' });
-        };
-
-        const [appointment_id] = await createAnAppointment(patient_id, doctor_id, appointment_time, status);
-        res.status(201).json({ message: 'Data added successfully', appointment_id });
+      const {
+        patient_id,
+        doctor_id,
+        appointment_time,
+        status,
+        patient_first_name,
+        patient_last_name,
+        doctor_first_name,
+        doctor_last_name,
+      } = req.body;
+  
+      if (
+        !patient_id ||
+        !doctor_id ||
+        !appointment_time ||
+        !status ||
+        !patient_first_name ||
+        !patient_last_name ||
+        !doctor_first_name ||
+        !doctor_last_name
+      ) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+      
+  
+      const [appointment_id] = await createAnAppointment(
+        patient_id,
+        doctor_id,
+        appointment_time,
+        status,
+      );
+      res.status(201).json({
+        data: {
+          appointment_id,
+          patient_id,
+          doctor_id,
+          appointment_time,
+          status,
+          patient_first_name,
+          patient_last_name,
+          doctor_first_name,
+          doctor_last_name,
+        },
+      });
     } catch (err) {
-        res.status(500).json({error: err})
+      res.status(500).json({ error: err });
     }
-}
+  };
 
 const deleteAppointment = async (req, res) => {
     try {
@@ -55,24 +91,54 @@ const deleteAppointment = async (req, res) => {
 
 const updateAppointment = async (req, res) => {
     try {
-        const { id } = req.params;
-        const updates = req.body;
-
-        if(!Object.keys(updates).length) {
-            return res.status(400).json({error: "No fields provided to update !"});
-        }
-
-        const rowsUpdated = await updateAnAppointment(id, updates);
-
-        if(rowsUpdated === 0) {
-            return res.status(404).json({error: "No such data found to be updated"});
-        }
-
-        return res.status(200).json({message: "Data updated successfully"})
+      const { id } = req.params;
+      const {
+        patient_id,
+        doctor_id,
+        appointment_time,
+        status,
+        patient_first_name,
+        patient_last_name,
+        doctor_first_name,
+        doctor_last_name,
+      } = req.body;
+  
+      const updates = {
+        patient_id,
+        doctor_id,
+        appointment_time,
+        status,
+      };
+  
+      if (!Object.keys(updates).length) {
+        return res.status(400).json({ error: "No fields provided to update!" });
+      }
+  
+      const rowsUpdated = await updateAnAppointment(id, updates);
+  
+      if (rowsUpdated === 0) {
+        return res
+          .status(404)
+          .json({ error: "No such data found to be updated" });
+      }
+  
+      return res.status(200).json({
+          data: {
+            appointment_id: Number(id),
+            ...updates,
+            patient_first_name,
+            patient_last_name,
+            doctor_first_name,
+            doctor_last_name,
+          },
+      });      
     } catch (err) {
-
+      console.error("Error in update record:", err);
+      return res
+        .status(500)
+        .json({ error: "Something went wrong on the server" });
     }
-}
+  };
 
 
 

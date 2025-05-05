@@ -11,7 +11,7 @@ const validateAppointment = [
         .isISO8601({ strict: true })
         .withMessage('Invalid date format'),
     body('status')
-        .isIn(['scheduled', 'completed', 'canceled'])
+        .isIn(['Scheduled', 'Completed', 'Canceled'])
         .withMessage('Invalid status'),
     (req, res, next) => {
         const errors = validationResult(req);

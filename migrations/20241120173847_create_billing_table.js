@@ -17,10 +17,10 @@ exports.up = function(knex) {
                     .inTable('appointments')
                     .onDelete('CASCADE')
                     .onUpdate('CASCADE');
-                table.decimal('amount', 10, 2).notNullable();
+                table.string('amount', 100).notNullable();
                 table.dateTime('bill_date').notNullable();
                 table
-                    .enu('status', ['scheduled' , 'completed' , 'canceled'])
+                    .enu('payment_status', ['Paid' , 'Not Paid' , 'Insurance'])
                     .notNullable()
                     .defaultTo('scheduled');
             });

@@ -4,14 +4,11 @@ const validateBillings = [
     body('patient_id')
         .isInt({ min: 1 })
         .withMessage('Patient ID must be an integer'),
-    body('appointment_id')
-        .isInt({ min: 1 })
-        .withMessage('Appointment ID must be an integer'),
     body('amount')
-        .isInt({ min: 2 })
+        .isString()
         .withMessage('Amount must be an integer'),
     body('payment_status')
-        .isIn(['paid', 'pending', 'insurance'])
+        .isIn(['Paid', 'Not Paid', 'Insurance'])
         .withMessage('Invalid status'),
     body('bill_date')
         .isISO8601({ strict: true })
@@ -26,3 +23,5 @@ const validateBillings = [
 ];
 
 module.exports = validateBillings;
+
+

@@ -7,14 +7,15 @@ const validateRooms = [
     body('room_type')
         .isString()
         .notEmpty()
-        .withMessage('Patient ID must be a positive integer'),
+        .isIn(['Surgery', 'ICU', 'General'])
+        .withMessage('Room Type must be a string'),
     body('capacity')
         .isInt({ min: 1 })
         .withMessage('Capacity must be a positive integer'),
     body('availability_type')
         .isString()
         .notEmpty()
-        .withMessage('Availability Type must be a positive integer'),
+        .withMessage('Availability Type must be a string'),
 
     (req, res, next) => {
         const errors = validationResult(req);

@@ -23,18 +23,41 @@ const getRooms = async (req, res) => {
 
 const createRoom = async (req, res) => {
     try {
-        const { room_number, room_type, capacity, availability_type } = req.body;
-
-        if (!room_number || !room_type || !capacity || !availability_type) {
-            return res.status(400).json({ error: 'All fields are required' });
-        };
-
-        const [room_id] = await createARoom(room_number, room_type, capacity, availability_type);
-        res.status(201).json({ message: 'Data added successfully', room_id });
+      const {
+        room_number,
+        room_type,
+        capacity,
+        availability_type
+      } = req.body;
+  
+      if (
+        !room_number ||
+        !room_type ||
+        !capacity ||
+        !availability_type
+      ) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+  
+      const [room_id] = await createARoom(
+        room_number,
+        room_type,
+        capacity,
+        availability_type
+      );
+      res.status(201).json({
+        data: {
+          room_id,
+          room_number,
+          room_type,
+          capacity,
+          availability_type
+        },
+      });
     } catch (err) {
-        res.status(500).json({error: err})
+      res.status(500).json({ error: err });
     }
-}
+  };
 
 const deleteRoom = async (req, res) => {
     try {
@@ -53,24 +76,46 @@ const deleteRoom = async (req, res) => {
 
 const updateRoom = async (req, res) => {
     try {
-        const { id } = req.params;
-        const updates = req.body;
-
-        if(!Object.keys(updates).length) {
-            return res.status(400).json({error: "No fields provided to update !"});
-        }
-
-        const rowsUpdated = await updateARoom(id, updates);
-
-        if(rowsUpdated === 0) {
-            return res.status(404).json({error: "No such data found to be updated"});
-        }
-
-        return res.status(200).json({message: "Data updated successfully"})
+      const { id } = req.params;
+      const {
+        room_number,
+        room_type,
+        capacity,
+        availability_type
+      } = req.body;
+  
+      const updates = {
+        room_number,
+        room_type,
+        capacity,
+        availability_type
+      };
+  
+      if (!Object.keys(updates).length) {
+        return res.status(400).json({ error: "No fields provided to update!" });
+      }
+  
+      const rowsUpdated = await updateARoom(id, updates);
+  
+      if (rowsUpdated === 0) {
+        return res
+          .status(404)
+          .json({ error: "No such data found to be updated" });
+      }
+  
+      return res.status(200).json({
+        data: {
+          room_id: Number(id), // Ensure it's returned and as a number
+          ...updates
+        },
+      });
     } catch (err) {
-
+      console.error("Error in update Room:", err);
+      return res
+        .status(500)
+        .json({ error: "Something went wrong on the server" });
     }
-}
+  };
 
 
 module.exports = {

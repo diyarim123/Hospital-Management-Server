@@ -30,7 +30,7 @@ const createDepartment = async (req, res) => {
         };
 
         const [department_id] = await createADepartment(department_name, description);
-        res.status(201).json({ message: 'Data added successfully', department_id });
+        res.status(201).json({ data: { department_id, department_name, description } });
     } catch (err) {
         res.status(500).json({error: err})
     }
@@ -53,24 +53,39 @@ const deleteDepartment = async (req, res) => {
 
 const updateDepartment = async (req, res) => {
     try {
-        const { id } = req.params;
-        const updates = req.body;
-
-        if(!Object.keys(updates).length) {
-            return res.status(400).json({error: "No fields provided to update !"});
-        }
-
-        const rowsUpdated = await updateADepartment(id, updates);
-
-        if(rowsUpdated === 0) {
-            return res.status(404).json({error: "No such data found to be updated"});
-        }
-
-        return res.status(200).json({message: "Data updated successfully"})
+      const { id } = req.params;
+      const { department_name, description } = req.body;
+  
+      const updates = {
+        department_name,
+        description
+      }
+  
+      if (!Object.keys(updates).length) {
+        return res.status(400).json({ error: "No fields provided to update!" });
+      }
+  
+      const rowsUpdated = await updateADepartment(id, updates);
+  
+      if (rowsUpdated === 0) {
+        return res
+          .status(404)
+          .json({ error: "No such data found to be updated" });
+      }
+  
+      return res.status(200).json({
+        data: {
+          department_id: Number(id),
+          ...updates
+        },
+      });
     } catch (err) {
-
+      console.error("Error in update Service:", err);
+      return res
+        .status(500)
+        .json({ error: "Something went wrong on the server" });
     }
-}
+  };
 
 
 module.exports = {
